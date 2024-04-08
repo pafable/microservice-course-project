@@ -64,6 +64,13 @@ module "eks" {
 }
 
 resource "aws_eks_addon" "vpc_cni" {
-  addon_name = "vpc-cni"
-  cluster_name = module.eks.cluster_name
+  addon_name    = "vpc-cni"
+  cluster_name  = module.eks.cluster_name
+  addon_version = var.vpc_cni_version[local.cluster_version]
+}
+
+variable "vpc_cni_version" {
+  default = {
+    "1.25" = "v1.18.0-eksbuild.1"
+  }
 }
