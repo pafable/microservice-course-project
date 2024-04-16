@@ -3,14 +3,14 @@ locals {
   azs                    = slice(data.aws_availability_zones.available.names, 0, 3)
   capacity_type          = "SPOT"
   cluster_name           = "course-project"
-  cluster_version        = "1.25"
+  cluster_version        = "1.29"
   disk_size              = 30
   enable_cluster_creator = true
   enable_nat_gateway     = true
   enable_public_access   = true
   instance_types         = ["t2.micro"]
-  node_desired_size      = 1
-  node_max_size          = 3
+  node_desired_size      = 3
+  node_max_size          = 5
   node_min_size          = 1
   intra_subnets          = ["10.0.10.0/24", "10.0.11.0/24", "10.0.12.0/24"]
   private_subnets        = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
@@ -60,17 +60,5 @@ module "eks" {
       max_size = local.node_max_size
       min_size = local.node_min_size
     }
-  }
-}
-
-resource "aws_eks_addon" "vpc_cni" {
-  addon_name    = "vpc-cni"
-  cluster_name  = module.eks.cluster_name
-  addon_version = var.vpc_cni_version[local.cluster_version]
-}
-
-variable "vpc_cni_version" {
-  default = {
-    "1.25" = "v1.18.0-eksbuild.1"
   }
 }
