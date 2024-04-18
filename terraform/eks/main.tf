@@ -45,6 +45,12 @@ module "eks" {
   subnet_ids                               = module.vpc.private_subnets
   vpc_id                                   = module.vpc.vpc_id
 
+  cluster_addons = {
+    ebs-csi = {
+      most_recent = true
+    }
+  }
+
   eks_managed_node_groups = {
     course-project = {
       ami_type       = local.ami_type
