@@ -8,7 +8,7 @@ locals {
   enable_cluster_creator = true
   enable_nat_gateway     = true
   enable_public_access   = true
-  instance_types         = ["t2.micro"]
+  instance_types         = ["t3.medium"]
   node_desired_size      = 3
   node_max_size          = 5
   node_min_size          = 1
