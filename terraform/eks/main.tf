@@ -46,7 +46,7 @@ module "eks" {
   vpc_id                                   = module.vpc.vpc_id
 
   cluster_addons = {
-    ebs-csi = {
+    aws-ebs-csi-driver = {
       most_recent = true
     }
   }
