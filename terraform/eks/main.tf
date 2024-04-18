@@ -59,6 +59,21 @@ module "eks" {
       desired_size   = local.node_desired_size
       instance_types = local.instance_types
 
+      iam_role_additional_policies = [
+        {
+          policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+        },
+        {
+          policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+        },
+        {
+          policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+        },
+        {
+          policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+        }
+      ]
+
       launch_template_tags = {
         Name = "${local.cluster_name}-node"
       }
